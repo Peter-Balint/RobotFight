@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:RobotFight_Avalonia.ViewModels"
+			 xmlns:v="clr-namespace:RobotFight_Avalonia.Views"
+             mc:Ignorable="d" d:DesignWidth="550" d:DesignHeight="700"
+             x:Class="RobotFight_Avalonia.Views.MainView"
+             x:DataType="vm:RobotFightViewModel"
+			 d:DataContext="{x:Static v:DesignData.ViewModel}"
+			 >
+	
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="File" >
+				<MenuItem Header="Save Game" Command="{Binding SaveGameCommand}"></MenuItem>
+				<MenuItem Header="Load Game" Command="{Binding LoadGameCommand}"></MenuItem>
+			</MenuItem>
+			<MenuItem Header="New Game">
+				<MenuItem Header="New 4x4 Game" Command="{Binding NewGameCommand}" CommandParameter="4"></MenuItem>
+				<MenuItem Header="New 6x6 Game" Command="{Binding NewGameCommand}" CommandParameter="6"></MenuItem>
+				<MenuItem Header="New 8x8 Game" Command="{Binding NewGameCommand}" CommandParameter="8"></MenuItem>
+			</MenuItem>
+		</Menu>
+		<UniformGrid Columns="2" Rows="1" DockPanel.Dock="Bottom">
+			<TextBlock Text="{Binding HealthText[0]}" TextAlignment="Center"></TextBlock>
+			<TextBlock Text="{Binding HealthText[1]}" TextAlignment="Center"></TextBlock>
+		</UniformGrid>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="60*"></RowDefinition>
+				<RowDefinition Height="32*"></RowDefinition>
+				<RowDefinition Height="8*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<ItemsControl Grid.Column="0" ItemsSource="{Binding GridImages}" Margin="5">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Rows="{Binding BoardSize}" Columns="{Binding BoardSize}" Background="PeachPuff"></UniformGrid>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border BorderBrush="Black" BorderThickness="1">
+						<Image
+							   Classes.IsRobot1="{Binding IsRobot1}"
+							   Classes.IsRobot2="{Binding IsRobot2}"
+							   Margin="3"
+							   >
+							<Image.Styles>
+								<Style Selector="Image.IsRobot1">
+									<Setter Property="Source" Value="/Assets/robot_orange.png"></Setter>
+								</Style>
+								<Style Selector="Image.IsRobot2">
+									<Setter Property="Source" Value="/Assets/robot_red.png"></Setter>
+								</Style>
+							</Image.Styles>
+							<Image.RenderTransform>
+								<RotateTransform Angle="{Binding Rotation}" CenterX="0" CenterY="0"></RotateTransform>
+							</Image.RenderTransform>
+						</Image>
+					</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+			<UniformGrid Grid.Row="1" Rows="5" Columns="2">
+				<UniformGrid.Styles>
+					<Style Selector="Button">
+						<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+						<Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+						<Setter Property="BorderBrush" Value="Black"></Setter>
+						<Setter Property="Margin" Value="2"></Setter>
+						<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+						<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+					</Style>
+				</UniformGrid.Styles>
+				<Button Content="Move Forward" Command="{Binding AddActionCommand}" CommandParameter="moveforward"></Button>
+				<Button Content="Move Back" Command="{Binding AddActionCommand}" CommandParameter="moveback"></Button>
+				<Button Content="Move Left" Command="{Binding AddActionCommand}" CommandParameter="moveleft"></Button>
+				<Button Content="Move Right" Command="{Binding AddActionCommand}" CommandParameter="moveright"></Button>
+				<Button Content="Turn Left" Command="{Binding AddActionCommand}" CommandParameter="turnleft"></Button>
+				<Button Content="Turn Right" Command="{Binding AddActionCommand}" CommandParameter="turnright"></Button>
+				<Button Content="Use Laser" Command="{Binding AddActionCommand}" CommandParameter="uselaser"></Button>
+				<Button Content="Use Melee" Command="{Binding AddActionCommand}" CommandParameter="melee"></Button>
+				<Button Content="Clear Actions" Command="{Binding ClearActionsCommand}"></Button>
+				<Button Content="Lock In" Command="{Binding LockInActionsCommand}"></Button>
+			</UniformGrid>
+			<TextBlock Grid.Row="2" Text="{Binding CurrentActionsText}" TextWrapping="WrapWithOverflow" TextAlignment="Center"></TextBlock>
+		</Grid>
+		
+	</DockPanel>
+</UserControl>

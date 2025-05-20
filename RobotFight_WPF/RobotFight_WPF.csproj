@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\heart_orange.png" />
+    <None Remove="Icons\heart_red.png" />
+    <None Remove="Icons\heart_small.jpg" />
+    <None Remove="Icons\robot_1.png" />
+    <None Remove="Icons\robot_2.png" />
+    <None Remove="Icons\robot_orange.png" />
+    <None Remove="Icons\robot_red.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\robot_orange.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\robot_red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RobotFight\RobotFight.csproj" />
+  </ItemGroup>
+
+</Project>
